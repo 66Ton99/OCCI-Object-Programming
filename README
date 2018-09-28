@@ -1,6 +1,6 @@
 A Sample OCCI Application - Object Programming
 
-Working version from the documentation https://docs.oracle.com/cd/B28359_01/appdev.111/b28390/objects.htm
+Working version from the documentation https://docs.oracle.com/en/database/oracle/oracle-database/12.2/lncpp/object-programming.html#GUID-6E6AA436-1CBB-4571-A738-AEF47FF29598
 
 Do not change files:
 demo2.cpp
