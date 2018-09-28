@@ -1,0 +1,4 @@
+TYPE FULLNAME GENERATE CFullName as MyFullName
+TYPE ADDRESS GENERATE CAddress as MyAddress
+TYPE PERSON GENERATE CPerson as MyPerson
+TYPE STUDENT GENERATE CStudent as MyStudent
