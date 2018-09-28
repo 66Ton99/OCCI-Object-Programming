@@ -1,6 +1,7 @@
 AC_PREREQ([2.68])
 AC_INIT([db],[1.0], [anton.shapka@oracle.com])
 AC_CONFIG_SRCDIR([main.cpp])
+AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([1.11 foreign])
 AC_CANONICAL_HOST
 AC_PROG_CPP

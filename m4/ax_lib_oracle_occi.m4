@@ -102,6 +102,8 @@ AC_DEFUN([AX_LIB_ORACLE_OCCI],
     dnl Collect include/lib paths
     dnl
     want_oracle_but_no_path="no"
+    oracle_version=""
+    oracle_version_major=""
 
     if test -n "$oracle_home_dir"; then
 
@@ -115,6 +117,9 @@ AC_DEFUN([AX_LIB_ORACLE_OCCI],
             oracle_include_dir2="$oracle_home_dir/rdbms/demo"
 
             path=${oracle_home_dir#*oracle/};
+            oracle_version=${path%%/*}
+            oracle_version_major=${oracle_version%%.*}
+
             dnl Secondary path to OCCI headers, available in Oracle >= 12.0
             oracle_include_dir3="/usr/include/oracle/$path"
 
@@ -245,7 +250,7 @@ env = oracle::occi::Environment::createEnvironment();
         CPPFLAGS="$CPPFLAGS -I$oracle_include_dir"
 
         saved_LDFLAGS="$LDFLAGS"
-        occi_ldflags="-L$oracle_lib_dir -lclntsh -lnnz12 -locci -lociei"
+        occi_ldflags="-L$oracle_lib_dir -lclntsh -lnnz$oracle_version_major -locci -lociei"
         LDFLAGS="$LDFLAGS $occi_ldflags"
 
         dnl
@@ -268,9 +273,7 @@ env = oracle::occi::Environment::createEnvironment();
             )],
             [
             ORACLE_OCCI_CPPFLAGS="-I$oracle_include_dir"
-
-            path=${oracle_home_dir#*oracle/}
-            ORACLE_OCCI_VERSION=${path%%/*}
+            ORACLE_OCCI_LDFLAGS="$occi_ldflags"
 
             occi_header_found="yes"
             occi_lib_found="yes"
@@ -353,8 +356,7 @@ env = oracle::occi::Environment::createEnvironment();
                 dnl Add -lnnz12 flag to Oracle >= 12.x
                 AC_MSG_CHECKING([for Oracle version >= 12.x to use -lnnz$oracle_version_major flag])
                 oracle_nnz12_check=`expr \( $oracle_version_number \>\= 12 \* 1000000 \) \& \( $oracle_version_number \< 13 \* 1000000 \)`
-                if test "$oracle_nnz11_check" = "1"; then
-                    ORACLE_OCCI_LDFLAGS="$ORACLE_OCCI_LDFLAGS -lnnz$oracle_version_major"
+                if test "$oracle_nnz12_check" = "1"; then
                     AC_MSG_RESULT([yes])
                 else
                     AC_MSG_RESULT([no])

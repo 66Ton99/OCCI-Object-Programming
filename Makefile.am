@@ -1,10 +1,9 @@
 CPPFLAGS += $(AWN_CPPFLAGS) -Wall
 
-AM_CPPFLAGS = -I/usr/include/oracle/12.2/client64
-LDLIBSOPTIONS = -L/usr/lib/oracle/12.2/client64/lib -lpthread -lcrypto -lclntshcore -lipc1 -lmql1 -lons -lociei \
-			    -lclntsh -lnnz12 -locci
+AM_CPPFLAGS = $(ORACLE_OCCI_CPPFLAGS)
 
-AM_LDFLAGS = $(LDLIBSOPTIONS)
+LDLIBSOPTIONS = -lpthread -lcrypto -lclntshcore -lipc1 -lmql1 -lons
+AM_LDFLAGS = $(ORACLE_OCCI_LDFLAGS)
 
 bin_PROGRAMS = db
 db_SOURCES =		\

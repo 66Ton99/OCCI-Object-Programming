@@ -17,13 +17,13 @@ int main()
         /* Call the OTT generated function to register the mappings */
         /* create a persistent object of type ADDRESS in the database table,
            ADDR_TAB */
-        MyAddress *addr1 = new(conn, "ADDR_TAB") MyAddress("CA", "94065");
+        new(conn, "ADDR_TAB") MyAddress("CA", "94065");
         conn->commit();
 
-        Statement *st = conn->createStatement("select ref(a) from addr_tab a");
+        Statement *st = conn->createStatement("SELECT REF(a) FROM addr_tab a");
         ResultSet *rs = st->executeQuery();
         Ref<MyAddress> r1;
-        if ( rs->next())
+        if (rs->next())
             r1 = rs->getRef(1);
         st->closeResultSet(rs);
         conn->terminateStatement(st);

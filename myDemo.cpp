@@ -1,5 +1,4 @@
 #ifndef DEMO2_ORACLE
-#include <cassert>
 #include "myDemo.h"
 #endif
 
@@ -33,13 +32,12 @@ MyAddress::MyAddress(std::string state_i, std::string zip_i)
 /* display all the information in MyAddress */
 void MyAddress::displayInfo()
 {
-    std::cout << "STATE is" << getState() << std::endl;
-    std::cout << "ZIP is" << getZip() << std::endl;
+    std::cout << "STATE is: " << getState() << std::endl;
+    std::cout << "ZIP is: " << getZip() << std::endl;
 }
 
 MyAddress::MyAddress(void *ctxOCCI_) :CAddress(ctxOCCI_)
 {
-    std::cout << "MyAddress::MyAddress" << std::endl;
 }
 
 /* METHOD IMPLEMENTATIONS FOR MyPerson CLASS. */
@@ -71,13 +69,13 @@ void MyPerson::move(const oracle::occi::Ref<MyAddress>& new_addr)
 /*  display all the information of MyPerson */
 void MyPerson::displayInfo()
 {
-    std::cout << "ID is" << (int)getId() << std::endl;
+    std::cout << "ID is: " << (int)getId() << std::endl;
     ((MyFullName*)getName())->displayInfo();
 
     try{
         if (!getCurr_addr()->isNull())
         {
-            std::cout << "Current Address:" << std::endl;
+            std::cout << "Current Address: " << std::endl;
             // de-referencing the Ref attribute using -> operator
             ((MyAddress*)&*getCurr_addr())->displayInfo();
         }
@@ -87,8 +85,7 @@ void MyPerson::displayInfo()
         std::cout << "No Address" << std::endl;
     }
     std::cout << "Prev Addr List: " << std::endl;
-//    oracle::occi::Ref::
-    for (int i = 0; i < getPrev_addr_l().size(); i++)
+    for (size_t i = 0; i < getPrev_addr_l().size(); i++)
     {
         // access the collection elements using [] operator
         ((oracle::occi::Ref<MyAddress>)getPrev_addr_l()[i])->displayInfo();
